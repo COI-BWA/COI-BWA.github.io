@@ -1,0 +1,105 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Rename files using Power Automate</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="Yong_Ting_rename_files"
+                  title="Rename files using Power Automate"
+                  environment="web"
+                  feedback-link="https://github.com/googlecodelabs/your-first-pwapp/issues">
+    
+      <google-codelab-step label="Introduction" duration="0">
+        <p>The use case aims to show how to rename a file by adding a timestamp.</p>
+<p><strong>Last Updated:</strong> 2022-01-06</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Overview" duration="0">
+        <h2 is-upgraded><strong>The output for the entire workflow</strong></h2>
+<p class="image-container"><img style="width: 503.79px" src="img\\10f7d2db9a9557a8.png"></p>
+<p>(Screenshot of the output for the Use Case flow)</p>
+<h2 is-upgraded><strong>Overview on the whole workflow</strong></h2>
+<p class="image-container"><img style="width: 624.00px" src="img\\dfea9754df6fd9b9.png"></p>
+<p>(Image of the Overview for the whole process in Power Automate)</p>
+<h3 is-upgraded><strong>Creating new flow</strong></h3>
+<p>Go to Power Automate <a href="https://asia.flow.microsoft.com/en-us/" target="_blank"><strong>https://asia.flow.microsoft.com/en-us/</strong></a> and create a new Automated Cloud Flow</p>
+<p class="image-container"><img style="width: 404.00px" src="img\\80f17945661a0c33.png"></p>
+<p>Name the flow as &#34;Rename Files&#34;</p>
+<p>And choose flow trigger as &#34;When a new email arrives (V3)&#34;</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\d6bf3bfa9633ae52.png"></p>
+<p>After creating a flow, click on &#34;Show Advanced Options&#34;</p>
+<h3 is-upgraded><img style="width: 624.00px" src="img\\41ed20b39b1101c7.png"></h3>
+<p>Fill in the necessary information</p>
+<p class="image-container"><img style="width: 645.55px" src="img\\22085253146b107d.png"></p>
+<h3 is-upgraded><strong>Convert Timezone </strong></h3>
+<p>By default, Power Automate timezone is in UTC. In this scenario, we are in SIngapore. Hence we will need to first change the timezone from UTC to SGT.</p>
+<p class="image-container"><img style="width: 632.30px" src="img\\ba5a5041a48e8f37.png"></p>
+<p>Add the action &#34;Convert time zone&#34; to convert the timezone from UTC to SGT.</p>
+<p class="image-container"><img style="width: 424.58px" src="img\\12edccdb1c89c69b.png"></p>
+<p>Set base time as an expression &#34;utcNow()&#34;. This will give us the current time but in the default UTC timezone.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\57b5a8cc826f90d7.png"></p>
+<p>Select Source time zone as (UTC +00:00) Casablanca which is the default timezone and select Destination time zone as (UTC +08:00) Kuala Lumpur, Singapore which is the timezone we are in (please change according to your preferred time zone).</p>
+<p>Enter d-M-yyy h.mm.sstt into Format string. There we have our timestamp. </p>
+<p class="image-container"><img style="width: 624.00px" src="img\\f8e4f78c65238727.png"></p>
+<p>Why do we have to use custom values when there&#39;s already built-in formats in Power Automate? </p>
+<p>This is because OneDrive does not allow users to include certain characters in a file name such as &#34; : &#34; which is commonly used to format time.</p>
+<p class="image-container"><img style="width: 352.00px" src="img\\23f519a6d212d38f.png"></p>
+<p>Next, we will be using the compose function to concatenate (add) the time stamp into the name of the file (in this case Excel file).</p>
+<p class="image-container"><img style="width: 465.71px" src="img\\867277f5a842302b.png"></p>
+<p>Add the following expression to concatenate the time stamp and file name.</p>
+<p>concat(body(&#39;Convert_time_zone&#39;),&#39; &#39;,items(&#39;Apply_to_each&#39;)?[&#39;name&#39;])</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\3af8181d913c677c.png"></p>
+<h3 is-upgraded><strong>Check for correct format</strong></h3>
+<p>In this case, we only want the flow to run if it&#39;s an Excel file. Hence we will create a condition to check whether the file is .xlsx (Excel format) or not.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\bdf318533fb5499e.png"></p>
+<p>If &#34;yes&#34; the file is an Excel file, we want to save the renamed file into our OneDrive.</p>
+<p>We want to get the Attachment information using &#34;Get Attachment&#34;</p>
+<p class="image-container"><img style="width: 487.50px" src="img\\8c005722e7f25548.png"></p>
+<p>Fill in accordingly.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\5cfae33aa36a8cbd.png"></p>
+<p>Next we will create the new file and save it in a new folder &#34;/RenamedFiles&#34;.</p>
+<p>Set the File Name as the Compose Output which we stored the new name with timestamp.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\f5d16a9ed1dd7cb0.png"></p>
+<h3 is-upgraded><strong>Test the flow</strong></h3>
+<p>Save the flow and test it by sending yourself.</p>
+<p>This is an example of the email that you will send to yourself to trigger the Power Automate flow. Do keep in mind that the subject MUST contain &#34;Rename&#34;. <img style="width: 496.00px" src="img\\4f1aa701bef3ff2a.png"></p>
+<p>Link to sample file - </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Resources" duration="0">
+        
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
