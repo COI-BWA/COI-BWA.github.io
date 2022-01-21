@@ -1,0 +1,109 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Regular Expression</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="wei_ren_regular_expression"
+                  title="Regular Expression"
+                  environment="web"
+                  feedback-link="https://github.com/googlecodelabs/your-first-pwapp/issues">
+    
+      <google-codelab-step label="Introduction (Regular Expression)" duration="1">
+        <p>The use case aims to show a basic example of how to use Plumsail Documents Regular Expression Match to use regular expressions in power automate as well as show regular expressions can be used to filter data.</p>
+<p><strong>Last Updated:</strong> 2022-01-04</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Overview" duration="10">
+        <h2 is-upgraded><strong>The output for the entire workflow</strong></h2>
+<p class="image-container"><img style="width: 624.00px" src="img\\dcfa2f483e77293e.png"></p>
+<p>(Screenshot of the output for the Use Case flow)</p>
+<h2 is-upgraded><strong>Overview on the whole workflow</strong></h2>
+<p class="image-container"><img style="width: 624.00px" src="img\\e18f7ad9b886c5a3.png"></p>
+<p>(Image of the Overview for the whole process of using Regular Expression in Power Automate)</p>
+<h3 is-upgraded><strong>Setting up Plumsail Account</strong></h3>
+<p>First, start by going to <a href="https://plumsail.com/documents" target="_blank">https://plumsail.com/documents</a> to create an account</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\ac0ec339b4852705.png"></p>
+<p>(Screenshot of Plumsail website)</p>
+<p>After creating an account, click on My Account on the top right. Next,  Select documents from the page </p>
+<h3 is-upgraded><strong>Setting up an API Key</strong></h3>
+<p class="image-container"><img style="width: 624.00px" src="img\\ca48be43c3e42e05.png"></p>
+<p>Next, Select API Keys on the left and create an API key </p>
+<p class="image-container"><img style="width: 624.00px" src="img\\cc42c7aee42c86f2.png"></p>
+<p>(Example of an API key created)</p>
+<h3 is-upgraded><strong>Setting up connection in power automate</strong></h3>
+<p>To use the functions from Plumsail in power automate, use the API key created to login</p>
+<p>Connect name input should be same as the API key name</p>
+<p>API key input could be copied from the &#34;Secret&#34; section where you create the API key</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\c03984b7332f3415.png"></p>
+<p>(Screenshot of creating a connection to use Plumsail Activities inside power automate)</p>
+<h3 is-upgraded><strong>Setting up list to store data</strong></h3>
+<p>Set up a microsoft list(for my use case it is Test Regex) and have the following columns (Price and Quantity as single line of text)</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\55b5c0667fc98dbf.png"></p>
+<p>(Screenshot of the columns in Microsoft list)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Implementation" duration="10">
+        <h2 is-upgraded>Initializing Variable</h2>
+<p>First, add a new action Initialize Variable and declare the name as TestString and the type of it as String. After that, copy the text below and paste it into the value</p>
+<p>*** Order information ***Time zone: GMT+00:00Reference: 4563452Order number: 1400Payment method: Visa/MasterCardOrder status: Credit card payment authorized*** Ordered products ***Product code: D3F13B23B0Title: TiresPrice: 150Quantity: 4Product code: FD3423DETitle: CookiesPrice: 30Quantity: 20Product code: KFG45GK445Title: ToolsPrice: 50Quantity: 10*** Delivery information ***First name: JohnLast name: DoeCompany: Happy Company LtdCountry: AustraliaPhone: 01 2345 6780</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\e251ba9bac4cd951.png"></p>
+<p>(Screenshot of the inputs for initialize variable action)</p>
+<h2 is-upgraded>Regular Expression Match</h2>
+<p>Next, create a new action Regular Expression Match from Plumsail Document. In the pattern input, copy and paste the text below</p>
+<p>Title: (?&lt;Title&gt;.+|)</p>
+<p>Price: (?&lt;Price&gt;.+|)</p>
+<p>Quantity: (?&lt;Quantity&gt;\d+)</p>
+<p>The regular expression for this is to filter the text above for any title in the text it will take the values after it. The same goes for Price and Quantity as well</p>
+<p>Afterwards, in the text input, select TestString as a variable</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\f02ca423a0e19c2.png"></p>
+<p>(Screenshot of the inputs in Regular Expression Match action)</p>
+<h2 is-upgraded><strong>Create Item</strong></h2>
+<p>Lastly, create a new action called Create Item from Sharepoint and select the list created which stores the input. The list name should be Test Regex. </p>
+<p>In the title input, select the Title created from the previous action which is the Plumsail Document Regular Expression Match. For the Price and Quantity, select the Price and Quantity from the previous action as well.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\cbde45d14c350a9b.png"></p>
+<p>(Screenshot of the inputs in Create Item in Sharepoint)</p>
+<p>Note: Do note that when you select the Title as the input for the first time, an apply for each will be created automatically which is normal. </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Resources" duration="1">
+        <p><a href="https://plumsail.com/docs/actions/v1.x/getting-started/sign-up.html" target="_blank">https://plumsail.com/docs/actions/v1.x/getting-started/sign-up.html</a></p>
+<p><a href="https://plumsail.com/docs/documents/v1.x/flow/how-tos/documents/use-regex-match-to-extract-values.html" target="_blank">https://plumsail.com/docs/documents/v1.x/flow/how-tos/documents/use-regex-match-to-extract-values.html</a></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
