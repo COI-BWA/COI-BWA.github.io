@@ -5,6 +5,8 @@ claat export 19-Tp3FRROgGvmDqXA51rVpsvxOdtu8ppKVnWyKPs4Gc
 claat export 1cnVE64OoAxwsuDJHRW83LqKiBrTfpE6nyReBBl3hHzw
 claat export 1TwtpBJStqkXhkvECoVjHE0xfbFNNCMk04pbbKm4_c9Q
 
+gulp dist
+
 git add .
 
 git commit -m auto-upload
