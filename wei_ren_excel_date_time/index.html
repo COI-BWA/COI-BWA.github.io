@@ -1,0 +1,124 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Converting Excel Date Time</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="wei_ren_excel_date_time"
+                  title="Converting Excel Date Time"
+                  environment="web"
+                  feedback-link="https://github.com/googlecodelabs/your-first-pwapp/issues">
+    
+      <google-codelab-step label="Introduction (Converting Excel Date Time into Sharepoint)" duration="1">
+        <p>The use case aims to show a basic example of how to convert Excel Date time into a date time </p>
+<p><strong>Last Updated:</strong> 2022-01-04</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Overview" duration="10">
+        <h2 is-upgraded><strong>The output for the entire workflow</strong></h2>
+<p class="image-container"><img style="width: 601.70px" src="img\\b7b8f1aad2c4379b.png"></p>
+<p>(Screenshot of the output for the Use Case flow)</p>
+<h2 is-upgraded><strong>Overview on the whole workflow</strong></h2>
+<p class="image-container"><img style="width: 601.70px" src="img\\5296c9e762e399ea.png"></p>
+<p>(Image of the Overview for the whole process of converting Excel Date Time into Sharepoint list part 1)</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\9d9b3a262108afac.png"></p>
+<p>(Image of the Overview for the whole process of converting Excel Date Time into Sharepoint list part 2)</p>
+<h3 is-upgraded><strong>Setting up Microsoft List </strong></h3>
+<p>There is a need to create a new list to store the output of the data. There is two columns needed which are Date Time (The date time converted before region conversion) and Date Time 2 (After region conversion)</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\14777a1c5f342036.png"></p>
+<p>(Screenshot of the columns in Microsoft list)</p>
+<h3 is-upgraded><strong>Setting up Excel File in One Drive</strong></h3>
+<p>There is a need to create an excel file in one drive and input some date time values into columns Date Time and Date Time 2. The values have to be formatted to be a table as well.</p>
+<p class="image-container"><img style="width: 515.00px" src="img\\8886ca34698c4074.png"></p>
+<p>(Image of the Excel values that will be inside the excel file in one drive)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Implementation" duration="10">
+        <h2 is-upgraded><strong>List Rows Present in A Table</strong></h2>
+<p>First, add a new action List Rows Present in A Table and select the excel file that has the date time values in it</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\7e67566c4dd8c2a0.png"></p>
+<p>(Screenshot showing the example inputs for the List rows present in a table)</p>
+<h2 is-upgraded><strong>Apply to Each </strong></h2>
+<p>Next, create a new action Apply to Each and select the excel value as an input field</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\8eb32e0fa12683b1.png"></p>
+<p>(Screenshot showing the input for Apply to Each)</p>
+<h2 is-upgraded><strong>Convert Excel Date Time into Float</strong></h2>
+<p>Next, create a new action Compose and in the expression field type in the expression</p>
+<p>float(items(‘Apply_to_each_2&#39;)?[‘Date Time&#39;])</p>
+<p>Side note: Do take note that for this use my loop is named Apply to each 2, it may differ for your workflow. </p>
+<p class="image-container"><img style="width: 601.70px" src="img\\64299d72ddba2c99.png"></p>
+<p>(Screenshot of the inputs in Compose action for converting excel date time into float)</p>
+<h2 is-upgraded><strong>Multiplying the Value by 86400</strong></h2>
+<p>Next, create a new action Compose and in the expression field type in the expression</p>
+<p>mul(outputs(‘Convert_Excel_Date_Time_Into_Float&#39;), 86400)</p>
+<p>Side note: Do take note of the names of the Compose activity that you have as they are important in expression as outputs function in the expression is taking the outputs from the action name specified.</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\a60e9c00e253c97d.png"></p>
+<p>(Screenshot of the inputs in Compose action for Multiplying value by 86400)</p>
+<h2 is-upgraded><strong>Converting Float Value to String</strong></h2>
+<p>Next, create a new action Compose and in the expression field type in the expression</p>
+<p>formatNumber(outputs(‘Multiplying_the_Value_by_86400&#39;), ‘0&#39;)</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\161258a384d6882f.png"></p>
+<p>(Screenshot of the inputs in Compose action for Converting Float Value to String)</p>
+<h2 is-upgraded><strong>Convert String value to Integer</strong></h2>
+<p>Next, create a new action Compose and in the expression field type in the expression</p>
+<p>int(outputs(‘Convert_Float_Value_To_String&#39;))</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\8f4cbbb5e86f6adf.png"></p>
+<p>(Screenshot of the inputs in Compose action for Convert String Value to Integer)</p>
+<h2 is-upgraded><strong>Adding Seconds To Convert To Time Date</strong></h2>
+<p>Next, create a new action Compose and in the expression field type in the expression</p>
+<p>addSeconds(‘1899-12-30&#39;, outputs(‘Convert_String_Value_to_Integer&#39;))</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\22f34c1409391659.png"></p>
+<p>(Screenshot of the inputs in Compose action for Adding Seconds To Convert to Time Date)</p>
+<h2 is-upgraded><strong>Create Item </strong></h2>
+<p>Lastly, create a new action Create Item and select the list used to store the date time. Input 1 as the Title. After that, for the Date Time column, select the output from the Adding Seconds To Convert To Time Date action and for the Date Time 2 Column, select the output from Date Time 2 from List Rows Present in a Table.</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\f6cb635e2314c406.png"></p>
+<p>(Screenshot showing the inputs for Create Item)</p>
+<h2 is-upgraded><strong>Convert Date Time based on Region</strong></h2>
+<p>Create a new action Compose on top of the action Create Item and input the following expression in it</p>
+<p>convertTimeZone(outputs(‘Adding_Seconds_To_Convert_to_Time_Date&#39;),&#39;UTC&#39;,&#39;Eastern Standard Time&#39;, ‘yyyy-MM-dd HH:mm:ss&#39;)&#39;</p>
+<p>After that, select the output from Convert Date Time based on Region as the input for Date Time 2 Column and the time would be different from the original one.</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\7f16300301f1ddeb.png"></p>
+<p>(Screenshot showing the output for after converting based on Region)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Resources" duration="1">
+        <p><a href="https://support.microsoft.com/en-us/topic/converting-time-zone-in-microsoft-power-automate-8bce2441-1859-4d76-2f51-985d9c96534d" target="_blank">https://support.microsoft.com/en-us/topic/converting-time-zone-in-microsoft-power-automate-8bce2441-1859-4d76-2f51-985d9c96534d</a></p>
+<p>https://www.tachytelic.net/2020/11/convert-excel-dates-power-automate/</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

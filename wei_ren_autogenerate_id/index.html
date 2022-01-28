@@ -1,0 +1,88 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>AutoGenerate Custom ID</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="wei_ren_autogenerate_id"
+                  title="AutoGenerate Custom ID"
+                  environment="web"
+                  feedback-link="https://github.com/googlecodelabs/your-first-pwapp/issues">
+    
+      <google-codelab-step label="Introduction (AutoGenerate Custom ID)" duration="1">
+        <p>The use case aims to show a basic example of how to create a custom generated ID and output it into a list</p>
+<p><strong>Last Updated:</strong> 2022-01-04</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Overview" duration="10">
+        <h2 is-upgraded><strong>The output for the entire workflow</strong></h2>
+<p class="image-container"><img style="width: 601.70px" src="img\\dcfa2f483e77293e.png"></p>
+<p>(Screenshot of the output for the Use Case flow)</p>
+<h2 is-upgraded><strong>Overview on the whole workflow</strong></h2>
+<p class="image-container"><img style="width: 601.70px" src="img\\93e02810704870f1.png"></p>
+<p>(Image of the Overview for the whole process of using Auto Generate Custom ID in Power Automate)</p>
+<h3 is-upgraded><strong>Setting up Microsoft List </strong></h3>
+<p>There is a need to create a new list to store the output of the data. There is only one column needed which is the ID </p>
+<p class="image-container"><img style="width: 601.70px" src="img\\eb7885a03a9e1e1b.png"></p>
+<p>(Screenshot of the columns in Microsoft list)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Implementation" duration="10">
+        <h2 is-upgraded><strong>Initializing Variable</strong></h2>
+<p>First, add a new action Initialize Variable and declare the name as ID and the type of it as String. After that, enter 1 as the value </p>
+<p class="image-container"><img style="width: 601.70px" src="img\\6d992ade6ccd019d.png"></p>
+<p>(Screenshot of the inputs for initialize variable action)</p>
+<h2 is-upgraded><strong>Compose</strong></h2>
+<p>Next, create a new action Compose and add in a expression which should be the following expression</p>
+<p>concat(substring(&#39;R00&#39;,0,sub(4,length(variables(&#39;ID&#39;)))), variables(&#39;ID&#39;))</p>
+<p>This expression first concatenates the substring and the variable ID which is the one we created earlier. For the parameters in the substring, we are using &#34;R00&#34; as a string template for the custom ID and 0 is the 2nd parameter as we start from index 0 which is R in this case. After that, the 3rd input is the length of the string which is the subtraction of 4 (which is the maximum length of our custom ID) and then the length of the variable ID. </p>
+<p class="image-container"><img style="width: 601.70px" src="img\\e7afc87f2b3805bd.png"></p>
+<p>(Screenshot of the inputs in Compose action)</p>
+<h2 is-upgraded><strong>Create Item</strong></h2>
+<p>Lastly, create a new action called Create Item from Sharepoint and select the list created which stores the input. The list name should be Test Auto Generate ID for this case. </p>
+<p>In the title input, select the created variable which is ID and then for the ID column select the output from the Compose action previously</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\27719bd8cbb6ee11.png"></p>
+<p>(Screenshot of the inputs in Create Item in Sharepoint)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Resources" duration="1">
+        <p><a href="https://manueltgomes.com/reference/powerautomate-function-reference/substring-function/" target="_blank">https://manueltgomes.com/reference/powerautomate-function-reference/substring-function/</a></p>
+<p><a href="https://docs.microsoft.com/en-us/powerapps/maker/canvas-apps/functions/function-concatenate" target="_blank">https://docs.microsoft.com/en-us/powerapps/maker/canvas-apps/functions/function-concatenate</a></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
