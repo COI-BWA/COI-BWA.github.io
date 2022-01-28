@@ -1,0 +1,99 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Getting Data from API</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="wei_ren_getting_data_from_api"
+                  title="Getting Data from API"
+                  environment="web"
+                  feedback-link="https://github.com/googlecodelabs/your-first-pwapp/issues">
+    
+      <google-codelab-step label="Introduction (Using API To Get Data)" duration="2">
+        <p>The use case aims to show a basic example of how to use an API which utilizes HTTP activity (requires premium account) to get data and then input it inside an excel table</p>
+<p><strong>Last Updated:</strong> 2022-01-04</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Overview" duration="10">
+        <h2 is-upgraded><strong>The output for the entire workflow</strong></h2>
+<p class="image-container"><img style="width: 414.00px" src="img\\4133e71ed9772faa.png"></p>
+<p>(Screenshot of the output for the Use Case flow)</p>
+<h2 is-upgraded><strong>Overview on the whole workflow</strong></h2>
+<p class="image-container"><img style="width: 601.70px" src="img\\651f8f85db94deaf.png"></p>
+<p>(Screenshot of the Overview for the whole process of using API to get data in Power Automate)</p>
+<h3 is-upgraded><strong>Setting up Account to get API key</strong></h3>
+<p>There is a need to sign up for an account to get an API key to get data. For this use case example, the website (<a href="https://manage.exchangeratesapi.io/login?u=https%3A%2F%2Fmanage.exchangeratesapi.io%2Fdashboard" target="_blank">https://manage.exchangeratesapi.io/login?u=https%3A%2F%2Fmanage.exchangeratesapi.io%2Fdashboard</a>) will be used to get an API key after creating an account.</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\3e7e4192c9cfbfc4.png"></p>
+<p>(Screenshot of the website to get the API key)</p>
+<p>After logging in, you will be directed to this page. In this page, click on 3-Step Quickstart Guide </p>
+<p class="image-container"><img style="width: 601.70px" src="img\\2bb936fc239c5250.png"></p>
+<p>(Screenshot of the main page for the website)</p>
+<p>In step 2: API Endpoints section, click on the link generated which will lead you to another tab which shows the data generated. The API Endpoints will be the URL which we will use later on during the HTTP action</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\3495ad76c5aa2ce3.png"></p>
+<p>(Screenshot to show the page after clicking on 3-Step Quickstart Guide)</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\936f10e8b2225953.png"></p>
+<p>(Screenshot to show the data generated after accessing the URL)</p>
+<h3 is-upgraded><strong>Setting up Excel File Online</strong></h3>
+<p>Go to excel online and then create a new excel file, afterwards input the columns (Date, SGD, JPY, AUD) and then create a table with those as headers</p>
+<p class="image-container"><img style="width: 411.00px" src="img\\d54ef72b655c9ed6.png"></p>
+<p>(Screenshot showing the table as well as the headers)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Implementation" duration="10">
+        <h2 is-upgraded><strong>HTTP</strong></h2>
+<p>First, add a new action HTTP (requires premium) and select the Method as GET in the dropdown list. For the URI, the input will be the whole URL used to get data which is available in the website mentioned above (In the API Endpoints section). Insert the URL from the API Endpoints section into the URI input</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\fe69f560b9135cb.png"></p>
+<p>(Screenshot of the inputs for HTTP action)</p>
+<h2 is-upgraded><strong>Parse JSON</strong></h2>
+<p>Next, create a new action parse JSON. For the Content input, select Body variable from the HTTP action. For the schema part, click on Generate from sample and copy all of the data from the API Endpoint URL and paste it inside the Sample JSON Payload field</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\d114501af856f457.png"></p>
+<p>(Screenshot showing the dialog box opening after clicking Generate from sample)</p>
+<p class="image-container"><img style="width: 601.70px" src="img\\3846f95e96febc95.png"></p>
+<p>(Screenshot showing the Parse JSON action)</p>
+<h2 is-upgraded><strong>Add a row into a table</strong></h2>
+<p>Lastly, create a new action called Add a row into a table. Select OneDrive For Business for the location input, Select OneDrive for the Document Library input, select the excel file that will be used to input the data into. Next, select the respective data from the Parse JSON action earlier into the respective columns. </p>
+<p class="image-container"><img style="width: 601.70px" src="img\\f7d07fb8ec44c434.png"></p>
+<p>(Screenshot of the inputs in Add a row into table)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Resources" duration="1">
+        <p><a href="https://www.youtube.com/watch?v=kgTHMDuvHY8" target="_blank">https://www.youtube.com/watch?v=kgTHMDuvHY8</a></p>
+<p><a href="https://exchangeratesapi.io/" target="_blank">https://exchangeratesapi.io/</a></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

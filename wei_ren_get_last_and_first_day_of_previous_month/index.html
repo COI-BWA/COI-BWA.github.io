@@ -1,0 +1,91 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Getting First and Last day of previous month</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="wei_ren_get_last_and_first_day_of_previous_month"
+                  title="Getting First and Last day of previous month"
+                  environment="web"
+                  feedback-link="https://github.com/googlecodelabs/your-first-pwapp/issues">
+    
+      <google-codelab-step label="Introduction (Getting First and Last day of previous month)" duration="1">
+        <p>The use case aims to show a basic example of how to get the first day and last day of the previous month</p>
+<p><strong>Last Updated:</strong> 2022-01-04</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Overview" duration="10">
+        <h2 is-upgraded><strong>The output for the entire workflow</strong></h2>
+<p class="image-container"><img style="width: 601.70px" src="img\\e417c8fdab1fbc3e.png"></p>
+<p>(Screenshot of the output for the Use Case flow)</p>
+<h2 is-upgraded><strong>Overview on the whole workflow</strong></h2>
+<p class="image-container"><img style="width: 601.70px" src="img\\53e2642acec0a98.png"></p>
+<p>(Image of the Overview for the whole process of getting first and last day of the previous month)</p>
+<h3 is-upgraded><strong>Setting up Microsoft List </strong></h3>
+<p>There is a need to create a new list to store the output of the data. There is two columns needed which are First Day Of The Previous Month and Last Day Of The Previous Month </p>
+<p class="image-container"><img style="width: 525.00px" src="img\\efe08c438cb1179e.png"></p>
+<p>(Screenshot of the columns in Microsoft list)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Implementation" duration="10">
+        <h2 is-upgraded><strong>Initialize Variable</strong></h2>
+<p>First, add a new action Initialize Variable with the expression</p>
+<p>startOfMonth(getPastTime(1,&#39;Month&#39;),&#39;MM/dd/yyyy&#39;)</p>
+<p>This gives the first day of the previous month</p>
+<p class="image-container"><img style="width: 601.00px" src="img\\97c62323ab0269ca.png"></p>
+<p>(Screenshot showing the input for Initialize variable)</p>
+<h2 is-upgraded><strong>Initialize Variable 2</strong></h2>
+<p>Next, create a new action Initialize Variable with the expression</p>
+<p>subtractFromTime(startOfMonth(utcNow(),&#39;MM/dd/yyyy&#39;),1,&#39;day&#39;)</p>
+<p class="image-container"><img style="width: 601.00px" src="img\\fae84dc325be3106.png"></p>
+<p>(Screenshot showing the input for Initialize variable 2)</p>
+<h2 is-upgraded><strong>Create Item </strong></h2>
+<p>Lastly, create a new action Create Item and select the list used to store the date time.For the First Day Of Previous Month, input the expression </p>
+<p>formatDateTime(variables(&#39;ToGetFirstDayOfLastMonth&#39;),&#39;yyyy-MM-dd&#39;) which formats the date.</p>
+<p>Last Day Of The Previous Month, input the expression </p>
+<p>formatDateTime(variables(&#39;ToGetLastDayOfLastMonth&#39;),&#39;yyyy-MM-dd&#39;)</p>
+<p class="image-container"><img style="width: 601.00px" src="img\\3f3da696af7febd.png"></p>
+<p>(Screenshot showing the inputs for Create Item)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Resources" duration="1">
+        <p><a href="https://debajmecrm.com/how-to-get-last-day-of-current-month-in-power-automate/" target="_blank">https://debajmecrm.com/how-to-get-last-day-of-current-month-in-power-automate/</a></p>
+<p><a href="https://paulcunningham.dev/calculate-start-end-month-power-automate/" target="_blank">https://paulcunningham.dev/calculate-start-end-month-power-automate/</a></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>PDF Invoice Extraction</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="Li_Tong_PDF_Invoice_Extraction"
+                  title="PDF Invoice Extraction"
+                  environment="web"
+                  feedback-link="https://github.com/googlecodelabs/your-first-pwapp/issues">
+    
+      <google-codelab-step label="Introduction (PDF Invoice Extraction)" duration="1">
+        <p>The use case aims to show a basic example of how to build and train an AI Model using Power Automate, apply the AI Model in Power Automate workflow to extract PDF invoice details from email attachment, and store the extracted data into an excel file. </p>
+<p><strong>Last Updated:</strong> 2022-01-06</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Overview" duration="10">
+        <h2 is-upgraded><strong>The output for the entire workflow</strong></h2>
+<p class="image-container"><img style="width: 624.00px" src="img\\a6237f6099b0f25e.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\4095d79eaa7493ac.png"></p>
+<p>(Screenshot of the output for the Use Case flow)</p>
+<h2 is-upgraded><strong>Overview on the whole workflow</strong></h2>
+<p class="image-container"><img style="width: 514.00px" src="img\\5d2fdab055c5cd68.png"></p>
+<p>(Image of the Overview for the whole process  in Power Automate)</p>
+<h3 is-upgraded>Build an AI Model</h3>
+<p>First, start by building an AI Model in Power Automate and train the AI Model to understand the data on invoices and to be able to automatically read new invoices. </p>
+<p class="image-container"><img style="width: 548.50px" src="img\\defc40b39a6b1380.png"></p>
+<p>(Screenshot of Power Automate - AI Builder)</p>
+<h3 is-upgraded><strong>Workflow to Get Empty File Content</strong></h3>
+<p>Next, create a workflow using Power Automate to get file content of an empty excel file for further use.</p>
+<p class="image-container"><img style="width: 589.50px" src="img\\d87f64c64c22edaa.png"></p>
+<p>(Screenshot of Power Automate workflow - Get File Content)</p>
+<h3 is-upgraded><strong>Workflow to read PDF Invoice and store extracted data</strong></h3>
+<p>Lastly, create a workflow using Power Automate to apply the AI Model to extract PDF invoice details from email attachment, and store the extracted data into an excel file.</p>
+<p class="image-container"><img style="width: 514.00px" src="img\\5d2fdab055c5cd68.png"></p>
+<p>(Screenshot of Power Automate workflow - PDF Invoice Extraction)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Implementation" duration="10">
+        <h2 is-upgraded><strong>Build AI Model</strong></h2>
+<p>Build an AI Model in Power Automate and train the AI Model to understand the data on invoices and to be able to automatically read new invoices. </p>
+<h3 is-upgraded>Create Model</h3>
+<p>To create an AI Model, first choose ‘Form Processing&#39; to refine a model.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\24d3f7565d94df58.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<p>Next, name the model as ‘Invoice Extraction&#39; and click ‘Create&#39;.<img style="width: 624.00px" src="img\\1dd8bd0e4273f767.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<h3 is-upgraded>Choose information to extract</h3>
+<p>Identify fields of information that you want the AI Model to extract from your document. Firstly, add field ‘Invoice No&#39;.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\841134bdc4cb45aa.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\8358efc9b235a2d.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<p>Add 2 more fields ‘Date&#39; and ‘Total&#39;.<img style="width: 624.00px" src="img\\efd92a9a232e2e5b.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<p>Add a table with columns of ‘Description&#39;, ‘Quantity&#39;, ‘Unit Cost&#39; and ‘Amount&#39;.<img style="width: 624.00px" src="img\\7da100ab3210427.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\b56a2d5c4ac1af4a.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\68cad5fd269b6f06.png"></p>
+<h3 is-upgraded><strong>Create Model Add collections of documents</strong></h3>
+<p>Next step is to add sample documents for your model to study. <img style="width: 624.00px" src="img\\8802453482e72e20.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<p>Upload 5 documents with same template into the collection. </p>
+<p class="image-container"><img style="width: 624.00px" src="img\\552f551b7b1968f6.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<p>Process uploading and click ‘Next&#39; when it finished.<img style="width: 624.00px" src="img\\f8742034b548f9d7.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<h3 is-upgraded><strong>Tag document</strong></h3>
+<p>After adding documents into collection, tag information and connect it to fields created. To tag information in document, you can either click on text or custom select field. <img style="width: 624.00px" src="img\\2d42a484d59c6147.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<p>Do same steps as ‘Invoice No&#39; to tag ‘Date&#39; and ‘Total&#39; fields.</p>
+<p>To tag table data, custom select table data without header.<img style="width: 678.30px" src="img\\591ef5fb0349e782.png"></p>
+<p>There are 2 methods to tag table data. </p>
+<p>Not using advanced tagging mode:</p>
+<ol type="1" start="1">
+<li>Add rows: left click inside the table to add rows</li>
+<li>Add columns: Press ctrl + left click to add columns</li>
+<li>Assign headers: Select header&#39;s column and add a header</li>
+<li>See table proview: adjust delimiters and validate extracted data</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\3868f3ff6ec99647.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<p>Using advanced tagging mode:</p>
+<ol type="1" start="1">
+<li>Click on the field of the table that you want to tag </li>
+<li>Custom select data in document and it will be automatically filled into the field.</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\5d8c6508e6faa02.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\596d31aa03d3fbec.png"></p>
+<p>Do same steps to tag all fields, tables and documents. Click ‘Next&#39;.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\47c34d9a33fd6929.png"></p>
+<h3 is-upgraded><strong>Model summary (Train Model)</strong></h3>
+<p>Review your model&#39;s details and train the model. <img style="width: 624.00px" src="img\\57fc03750edf7f5e.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<h3 is-upgraded><strong>Publish AI Model</strong></h3>
+<p>Click Models under AI Builder. All models that you have created are shown here. When the status shows ‘Trained&#39;, click the model to view model details<img style="width: 624.00px" src="img\\57282bea259ed108.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<p>Publish the model to so that it can be used in Power Automate workflow</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\6eb0c5d78aa5f361.png"></p>
+<p>(Screenshot of Power Automate AI Builder)</p>
+<h2 is-upgraded><strong>Workflow - Get File Content</strong></h2>
+<p>Create a workflow using Power Automate to get file content of an empty excel file for further use.</p>
+<h3 is-upgraded><strong>Create Empty Excel file</strong></h3>
+<p>Create an empty excel file in your OneDrive and name it as ‘EmptyFile.xlsx&#39;.</p>
+<h3 is-upgraded><strong>Flow Overview</strong></h3>
+<p>For ‘Get File content&#39; action, choose ‘EmptyFile.xlsx&#39; from OneDrive and run the flow. <img style="width: 589.50px" src="img\\d87f64c64c22edaa.png"></p>
+<h3 is-upgraded><strong>Get Output</strong></h3>
+<p>When the flow run successfully, copy Output -&gt; File content (include ‘{}&#39;) and paste to your Notepad for further use. </p>
+<p class="image-container"><img style="width: 624.00px" src="img\\d85e87fb02e15212.png"></p>
+<h2 is-upgraded><strong>Workflow - PDF Invoice Extraction</strong></h2>
+<p>Create a workflow using Power Automate to apply the AI Model to extract PDF invoice details from email attachment, and store the extracted data into an excel file.</p>
+<h3 is-upgraded><strong>Flow Overview</strong></h3>
+<h3 is-upgraded><img style="width: 514.00px" src="img\\5d2fdab055c5cd68.png"></h3>
+<h3 is-upgraded><strong>When a new email arrives</strong></h3>
+<p>This action will get PDF Invoice attachment when email with subject ‘Sample Invoice&#39; arrives. </p>
+<p>Folder: Inbox</p>
+<p>Include Attachments: Yes</p>
+<p>Subject Filter: Sample Invoice</p>
+<p>Only with Attachments: Yes</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\29d519696da4dda.png"></p>
+<h3 is-upgraded><strong>Predict</strong></h3>
+<p>Apply AI model to extract data</p>
+<p>Model: InvoiceExtraction</p>
+<p>Document type: Attachment Content-Type</p>
+<p>Document: Attachment Content</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\fc6e692c10ad3946.png"></p>
+<h3 is-upgraded><strong>Compose</strong></h3>
+<p>Paste file content in Notepad into ‘Inputs&#39;. We will need outputs of this action when create file. <img style="width: 624.00px" src="img\\400251075ff0c6a3.png"></p>
+<h3 is-upgraded><strong>Create File and Worksheet</strong></h3>
+<p>Create excel file and worksheet in OneDrive using Power Automate. </p>
+<p>Action: Create file</p>
+<p>Folder Path: ‘/GoBWA/Use Case - AI Builder&#39;</p>
+<p>File name: replace(items(‘Apply_to_each&#39;)?[‘name&#39;],&#39;.pdf&#39;,&#39;.xlsx&#39;)</p>
+<p>File content: Outputs</p>
+<p>Action: Create worksheet</p>
+<p>File: Id</p>
+<p>Name: item</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\a52012dd6772a521.png"></p>
+<h3 is-upgraded><strong>Create tables</strong></h3>
+<p>Create tables in Sheet1 and item</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\417a01d2031013ae.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\b44cc733aadf647.png"></p>
+<h3 is-upgraded><strong>Add a row into a table</strong></h3>
+<p>Add a row into excel table with invoice details and table details extracted.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\908fc8d396991084.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\4a2c86316dd33b00.png"></p>
+<h2 is-upgraded><strong>Test your Flow</strong></h2>
+<p>Save and manually test the flow. Send email with PDF invoice attachment to your own account.</p>
+<p class="image-container"><img style="width: 391.92px" src="img\\efcffc35754cadce.png"></p>
+<p>After running successfully, an excel file ‘Sample Invoice.xlsx&#39; will be created in OneDrive.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\a6237f6099b0f25e.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\4095d79eaa7493ac.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Resources" duration="1">
+        <p><a href="https://manueltgomes.com/reference/power-automate-action-reference/delay-action/" target="_blank">https://manueltgomes.com/reference/power-automate-action-reference/delay-action/</a></p>
+<p>https://docs.microsoft.com/en-us/ai-builder/predict-action-pwr-automate</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
